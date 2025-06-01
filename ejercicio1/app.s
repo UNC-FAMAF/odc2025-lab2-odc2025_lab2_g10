@@ -8,24 +8,62 @@
 
 	.globl main
 
+
 main:
 	// x0 contiene la direccion base del framebuffer
  	mov x20, x0	// Guarda la dirección base del framebuffer en x20
 	//---------------- CODE HERE ------------------------------------
 
-	movz x10, 0xC7, lsl 16
-	movk x10, 0x1585, lsl 00
-
-	mov x2, SCREEN_HEIGH         // Y Size
-loop1:
-	mov x1, SCREEN_WIDTH         // X Size
-loop0:
-	stur w10,[x0]  // Colorear el pixel N
-	add x0,x0,4	   // Siguiente pixel
-	sub x1,x1,1	   // Decrementar contador X
-	cbnz x1,loop0  // Si no terminó la fila, salto
-	sub x2,x2,1	   // Decrementar contador Y
-	cbnz x2,loop1  // Si no es la última fila, salto
+//Calculos de circulos
+circulo:
+    	mov x0, x20		// vuelvo a la posición base del framebuffer
+    	mul x14, x13, x13	// r^2
+    	mov x15, 0		// coordenada Y del píxel que se está evaluando.
+circle_y_loop:
+    	mov x16, 0		// coordenada X del píxel que se está evaluando.
+circle_x_loop:
+    	sub x17, x16, x11	// x17 = x16 - 160
+    	mul x17, x17, x17	// x17 = (x16 - 160)^2
+    	sub x18, x15, x12	// x18 = x15 - 200
+    	mul x18, x18, x18	// x18 = (x15 - 200)^2
+    	add x19, x17, x18	// x19 = (x16 - 160)^2 + (x15 - 200)^2
+    	cmp x19, x14		// FLAGS = [(x16 - 160)^2 + (x15 - 200)^2] - 60^2
+    	b.ge skip_pixel
+    	mov x21, SCREEN_WIDTH	// x21 = 640
+    	mul x22, x15, x21	// x21 = x15 * 640
+    	add x22, x22, x16	// x21 = (x15 * 640) + x16
+    	lsl x22, x22, 2		// x21 = [(x15 * 640) + x16] * 4
+    	add x0, x20, x22	// x0 = x0 + [(x15 * 640) + x16] * 4
+    	str w7, [x0]		// pinto x0
+skip_pixel:
+    	add x16, x16, 1		// x16 = x16 + 1
+    	cmp x16, SCREEN_WIDTH	// FLAGS = x16 - 640
+    	b.lt circle_x_loop
+    	add x15, x15, 1		// x15 = x15 + 1
+    	cmp x15, SCREEN_HEIGH	// FLAGS = x15 - 480
+    	b.lt circle_y_loop
+	ret
+//Datos de cuadrado
+cuadrado:
+	mov x0, x20		// vuelvo a direccion base del framebuffer
+    	mov x8, SCREEN_WIDTH	// x8 = 640
+    	mul x3, x3, x8		// x3 = 300 * 640
+    	add x3, x3, x4		// x3 = (300 * 640) + 100
+    	lsl x3, x3, 2		// x3 = [(300 * 640) + 100] * 4
+    	add x0, x20, x3		// x0 = x0 + [(300 * 640) + 100] * 4
+    	mov x5, x1		// x5 = 110
+draw_row:
+    	mov x6, x2		// x6 = 150
+draw_col:
+    	str w7, [x0]		// pinto el pixel
+    	add x0, x0, 4		// paso al siguiente pixel
+    	subs x6, x6, 1		// decremento la cantidad de filas que quedan
+    	b.ne draw_col		// si x6 != 1 salta a draw_col
+next_col:
+	add x0, x0, x15 	// paso a la siguiente columna
+    	subs x5, x5, 1		// decremento la cantidad de columnas que quedan
+    	b.ne draw_row		// si x5 != 1 salta a draw_row
+	ret			// retorno (instrucción de ARMv8)
 
 	// Ejemplo de uso de gpios
 	mov x9, GPIO_BASE
@@ -48,6 +86,8 @@ loop0:
 
 	//---------------------------------------------------------------
 	// Infinite Loop
+
+
 
 InfLoop:
 	b InfLoop

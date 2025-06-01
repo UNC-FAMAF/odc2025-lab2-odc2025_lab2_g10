@@ -14,7 +14,82 @@ main:
  	mov x20, x0	// Guarda la dirección base del framebuffer en x20
 	//---------------- CODE HERE ------------------------------------
 
-//Calculos de circulos
+//----------------------------Datos de cielo----------------------------
+	// Cielo
+	movz w10, 0x90, lsl 16		// defino color
+	movk w10, 0xD6F5, lsl 00	// completo color
+	mov x2, SCREEN_HEIGH         // tamaño y
+cielo1:
+	mov x1, SCREEN_WIDTH         // tamaño x
+cielo0:
+	str w10,[x0]		// colorear el pixel N
+	add x0,x0,4		// siguiente pixel
+	sub x1,x1,1		// decrementar contador X
+	cbnz x1,cielo0		// si no terminó la fila, salto
+	sub x2,x2,1		// decrementar contador Y
+	cbnz x2,cielo1		// si no es la última fila, salto
+
+
+	// Sol
+	movz w7, 0xF7, lsl 16		// defino color
+	movk w7, 0x9E19, lsl 00		// completo color
+    	mov x11, 80		// centro x
+    	mov x12, 80		// centro y
+    	mov x13, 50		// radio
+	bl circulo		// dibuja los "rayos" del sol
+	movz w7, 0xFF, lsl 16		// defino color
+	movk w7, 0xDA1B, lsl 00		// completo color
+    	mov x11, 80		// centro x
+    	mov x12, 80		// centro y
+    	mov x13, 40		// radio
+	bl circulo		// dibuja el "nucleo" del sol
+
+	// Nubes
+	mov x10, 2		// cantidad nubes
+	mov x1,280		// centro x
+	mov x2,80		// centro y
+    	mov x13,30		// radio
+nube:
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4
+	movz w7, 0xEF, lsl 16		// defino color
+	movk w7, 0xEFEF, lsl 00		// completo color
+	mov x11, x1		// centro x
+    	mov x12, x2		// centro y
+	bl circulo		// dibuja parte profunda de la nube
+	movz w7, 0xF5, lsl 16		// defino color
+	movk w7, 0xF5F5, lsl 00		// completo color
+	sub x11,x11,40		// centro x
+	bl circulo		// dibuja parte media de la nube
+	add x11,x11,40		// centro x
+    	sub x12,x12,20		// centro y
+	bl circulo		// dibuja parte media de la nube
+	add x11,x11,40		// centro x
+    	add x12,x12,20		// centro y
+	bl circulo		// dibuja parte media de la nube 
+	movz w7, 0xFF, lsl 16		// defino color
+	movk w7, 0xFFFF, lsl 00		// completo color
+	sub x11,x11,120		// centro x
+	bl circulo		// dibuja parte frontal de la nube
+	add x11,x11,40		// centro x
+    	sub x12,x12,20		// centro y
+	bl circulo		// dibuja parte frontal de la nube
+	add x11,x11,40		// centro x
+    	sub x12,x12,10		// centro y
+	bl circulo		// dibuja parte frontal de la nube
+	add x11,x11,40		// centro x
+    	add x12,x12,10		// centro y
+	bl circulo		// dibuja parte frontal de la nube
+	add x11,x11,40		// centro x
+    	add x12,x12,20		// centro y
+	bl circulo		// dibuja parte frontal de la nube
+
+	add x1,x1, 240		// cambio la posición en x de la nube
+	subs x10,x10,1		// descuento cantidad de nubes
+	cbnz x10, nube		// repito proceso si me quedan nubes por dibujar
+//----------------------------Función de circulo----------------------------
 circulo:
     	mov x0, x20		// vuelvo a la posición base del framebuffer
     	mul x14, x13, x13	// r^2
@@ -43,7 +118,8 @@ skip_pixel:
     	cmp x15, SCREEN_HEIGH	// FLAGS = x15 - 480
     	b.lt circle_y_loop
 	ret
-//Datos de cuadrado
+
+//----------------------------Función de cuadrado----------------------------
 cuadrado:
 	mov x0, x20		// vuelvo a direccion base del framebuffer
     	mov x8, SCREEN_WIDTH	// x8 = 640
@@ -86,8 +162,5 @@ next_col:
 
 	//---------------------------------------------------------------
 	// Infinite Loop
-
-
-
 InfLoop:
 	b InfLoop

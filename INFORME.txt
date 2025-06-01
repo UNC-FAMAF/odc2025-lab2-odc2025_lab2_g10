@@ -1,0 +1,20 @@
+Nombre y apellido 
+Integrante 1: Dictor Santiago Lopez
+
+Integrante 2: Luca Julian Sosa Bret
+
+Integrante 3: Manuel Quiroga
+
+Integrante 4: Rafael Ceratto
+
+Descripción ejercicio 1:
+La imagen contiene un día soleado, con un par de nubes, en la orilla de una playa donde se encuentra
+un cangrejo, y al fondo de la misma hay una isla con una palmera que tiene una señal de 'ODC 2025'.
+
+
+Descripción ejercicio 2:
+
+
+Justificación instrucciones ARMv8:
+- Se utilizó la instrucción 'ret' del lenguaje ARMv8 para facilitar el uso de la instrucción 'bl' y
+evitar sobre escribir el código varias veces, es decir, acortar el código.

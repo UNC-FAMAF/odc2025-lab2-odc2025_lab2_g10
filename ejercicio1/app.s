@@ -89,6 +89,151 @@ nube:
 	add x1,x1, 240		// cambio la posición en x de la nube
 	subs x10,x10,1		// descuento cantidad de nubes
 	cbnz x10, nube		// repito proceso si me quedan nubes por dibujar
+
+//----------------------------Datos de mar----------------------------
+	mov x0, x20		// vuelvo a direccion base del framebuffer
+	movz w10, 0x3F, lsl 16		// defino el color
+	movk w10, 0xA1CB, lsl 00	// completo color
+	mov x3,220		// posición y
+    	mov x8,SCREEN_WIDTH	// x8 = 640
+    	mul x3,x3,x8		// x3 = 300 * 640
+	mov x4,0		// x4 = 0
+    	add x3, x3, x4		// x3 = (300 * 640) + 0
+    	lsl x3, x3, 2		// x3 = (300 * 640) * 4
+    	add x0, x20, x3		// x0 = x0 + (300 * 640) * 4
+	mov x2, SCREEN_HEIGH	// x2 = 480
+mar1:
+	mov x1, SCREEN_WIDTH	// x1 = 640
+mar0:
+	str w10,[x0]		// Colorear el pixel N
+	add x0,x0,4		// Siguiente pixel
+	sub x1,x1,1		// Decrementar contador X
+	cbnz x1,mar0		// Si no terminó la fila, salto
+	sub x2,x2,1		// Drementar contador Y
+	subs xzr, x2, 380	// FLAGS = x2 - 380
+	b.hi mar1		// comprueba si x2 > 380
+
+//----------------------------Datos de arena----------------------------
+	// Base arena
+	mov x0, x20		// vuelvo a direccion base del framebuffer
+	mov x3,320		// x3 = 320, es decir, y = 320
+    	mov x8,SCREEN_WIDTH	// x8 = 640
+    	mul x3,x3,x8		// x3 = 320 * 640
+	mov x4,0		// x4 = 0, es decir, x = 0
+    	add x3, x3, x4		// x3 = (300 * 640) + 0
+    	lsl x3, x3, 2		// x3 = (300 * 640) * 4
+    	add x0, x20, x3		// x0 = x0 + (300 * 640) * 4
+	movz w10, 0xF2, lsl 16		// defino el color
+	movk w10, 0xCE9E, lsl 00	// completo color
+	mov x2, SCREEN_HEIGH	// x2 = 480
+arena1:
+	mov x1, SCREEN_WIDTH	// x1 = 640
+arena0:
+	str w10,[x0]		// Colorear el pixel N
+	add x0,x0,4		// Siguiente pixel
+	sub x1,x1,1		// Decrementar contador X
+	cbnz x1,arena0		// Si no terminó la fila, salto
+	sub x2,x2,1		// Drementar contador Y
+	subs xzr, x2, 200	// FLAGS = x2 - 380
+	b.hi arena1		// comprueba si x2 > 380
+
+	// Textura arena
+	mov x0, x20		// vuelvo a direccion base del framebuffer
+	mov x3,320		// x3 = 320, es decir, y = 320
+    	mov x8,SCREEN_WIDTH	// x8 = 640
+    	mul x3,x3,x8		// x3 = 300 * 640
+	mov x4,0		// x4 = 0, es decir, x = 0
+    	add x3, x3, x4		// x3 = (300 * 640) + 100
+    	lsl x3, x3, 2		// x3 = [(300 * 640) + 100] * 4
+    	add x0, x20, x3		// x0 = x0 + [(300 * 640) + 100] * 4
+	movz w10, 0xC4, lsl 16		// defino el color
+	movk w10, 0x9C68, lsl 00	// completo color
+	mov x2, SCREEN_HEIGH	// x2 = 480
+arena3:
+	mov x1, SCREEN_WIDTH	// x1 = 640
+arena2:
+	str w10,[x0]		// Colorear el pixel N
+	add x0,x0,108		// Siguiente pixel
+	sub x1,x1,1		// Decrementar contador X
+	cbnz x1,arena2		// Si no terminó la fila, salto
+	sub x2,x2,1		// Drementar contador Y
+	subs xzr, x2, 200	// FLAGS = x2 - 380
+	b.hi arena3		// comprueba si x2 > 380
+
+//----------------------------Datos de efecto orilla----------------------------
+	// Orilla azul
+	movz w7, 0x26, lsl 16		// defino el color
+	movk w7, 0x7EA4, lsl 00		// completo color
+	mov x1,4		// x1 = 4 (ancho del cuadrado)
+	mov x2,135		// x2 = 135 (largo del cuadrado)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+
+	mov x3,293		// x3 = 293 (posición y)
+	mov x4,0		// x4 = 0 (posición x)
+	bl cuadrado		// dibujo cuadrado y vuelvo
+
+	mov x3,290		// x3 = 300 (posición y)
+	mov x4,128		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo cuadrado y vuelvo
+
+	mov x3,293		// x3 = 300 (posición y)
+	mov x4,256		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo cuadrado y vuelvo
+
+	mov x3,290		// x3 = 300 (posición y)
+	mov x4,383		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo cuadrado y vuelvo
+
+	mov x3,293		// x3 = 300 (posición y)
+	mov x4,512		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo cuadrado y vuelvo
+
+	// Orilla blanca
+	movz w7, 0xFF, lsl 16		// defino el color
+	movk w7, 0xFFFF, lsl 00		// completo color
+	mov x1,15		// x1 = 110 (ancho del cuadrado)
+	mov x2,180		// x2 = 150 (largo del cuadrado)
+	mov x3,320		// x3 = 300 (posición y)
+	mov x4,0		// x4 = 100 (posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo cuadrado y vuelvo
+
+	mov x3,316		// x3 = 300 (posición y)
+	mov x4,180		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo orilla blanca principal
+
+	mov x3,320		// x3 = 300 (posición y)
+	mov x4,360		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo orilla blanca principal
+
+	mov x3,316		// x3 = 300 (posición y)
+	mov x4,480		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo orilla blanca principal
+
+	movz w7, 0xF5, lsl 16		// defino el color
+	movk w7, 0xF5F5, lsl 00		// completo color
+	mov x3,306		// x3 = 300 (posición y)
+	mov x4,0		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo orilla blanca secundaria
+
+	mov x3,302		// x3 = 300 (posición y)
+	mov x4,180		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo orilla blanca secundaria
+
+	mov x3,306		// x3 = 300 (posición y)
+	mov x4,360		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo orilla blanca secundaria
+
+	mov x3,302		// x3 = 300 (posición y)
+	mov x4,480		// x4 = 100 (posición x)
+	bl cuadrado		// dibujo orilla blanca secundaria
+
 //----------------------------Función de circulo----------------------------
 circulo:
     	mov x0, x20		// vuelvo a la posición base del framebuffer

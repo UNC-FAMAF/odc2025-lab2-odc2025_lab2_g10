@@ -234,6 +234,131 @@ arena2:
 	mov x4,480		// x4 = 100 (posición x)
 	bl cuadrado		// dibujo orilla blanca secundaria
 
+//----------------------------Datos de cangrejo----------------------------
+	// Patas izquierda del cangrejo
+	movz w7, 0xFF, lsl 16		// defino el color
+	movk w7, 0x0000, lsl 00		// completo color
+	mov x1,10		// x1 = 10 (ancho del cuadrado)
+	mov x2,7		// x2 = 7 (largo del cuadrado)
+	mov x3,400		// x3 = 400 (posición y)
+	mov x4,60		// x4 = 60 (posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo pata izquiera
+
+	mov x1,20		// x1 = 20 (modifico ancho del cuadrado)
+	mov x2,7		// x2 = 7 (largo del cuadrado)
+	mov x3,400		// x3 = 400 (posición y)
+	mov x4,70		// x4 = 70 (modifica posición x)
+	bl cuadrado		// dibujo pata izquiera
+
+	// Patas derecha del cangrejo
+	mov x1,10		// x1 = 10 (ancho del cuadrado)
+	mov x2,7		// x2 = 7 (largo del cuadrado)
+	mov x3,400		// x3 = 400 (posición y)
+	mov x4,193		// x4 = 193 (posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo pata derecha
+
+	mov x1,20		// x1 = 20 (modifico ancho del cuadrado)
+	mov x2,7		// x2 = 7 (largo del cuadrado)
+	mov x3,400		// x3 = 400 (posición y)
+	mov x4,182		// x4 = 182 (modifica posición x)
+	bl cuadrado		// dibujo pata derecha
+
+	// Parte baja del cangrejo
+	movz w7, 0xF0, lsl 16		// defino el color
+	movk w7, 0x5117, lsl 00		// completo color
+	mov x1,50		// x1 = 50
+	mov x2,80		// x2 = 80
+	mov x3,360		// x3 = 360
+	mov x4,90		// x4 = 90
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo parte baja del cangrejo
+
+	// Parte arriba del cangrejo
+	movz w7, 0xFF, lsl 16		// defino el color
+	movk w7, 0x0000, lsl 00		// completo color
+	mov x1,40		// x1 = 40 (ancho del cuadrado)
+	mov x2,100		// x2 = 100 (largo del cuadrado)
+	mov x3,360		// x3 = 360 (posición y)
+	mov x4,80		// x4 = 80 (posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo parte arriba del cangrejo
+
+	// Ojos del cangrejo
+	movz w7, 0x00, lsl 16		// defino el color
+	movk w7, 0x0000, lsl 00		// completo color
+    	mov x11, 120		// centro x
+    	mov x12, 370		// centro y
+    	mov x13, 5		// radio
+	bl circulo		// dibujo ojo izquierdo
+    	mov x11, 140		// centro x
+    	mov x12, 370		// centro y
+    	mov x13, 5		// radio
+	bl circulo		// dibujo ojo derecho
+
+	// Pinzas del cangrejo
+	movz w7, 0xCC, lsl 16		// defino el color
+	movk w7, 0x0000, lsl 00		// completo color
+	mov x1,10		// x1 = 10 (ancho del cuadrado)
+	mov x2,40		// x2 = 40 (largo del cuadrado)
+	mov x3,370		// x3 = 370 (posición y)
+	mov x4,60		// x4 = 60 (posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo parte de la pinza (superior)
+
+	mov x3,390		// x3 = 300 (modifico posición y)
+	bl cuadrado		// dibujo parte de la pinza (inferior)
+
+	mov x1,30		// x1 = 30 (ancho del cuadrado)
+	mov x2,20		// x2 = 20 (largo del cuadrado)
+	mov x3,370		// x3 = 370 (posición y)
+	mov x4,60		// x4 = 60 (posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo parte de la pinza (union de superior e inferior)
+
+	mov x1,10		// x1 = 10 (ancho del cuadrado)
+	mov x2,40		// x2 = 40 (largo del cuadrado)
+	mov x3,370		// x3 = 370 (posición y)
+	mov x4,160		// x4 = 160 (modifico posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo parte de la pinza (superior)
+
+	mov x3,390		// x3 = 390 (modifico posición y)
+	bl cuadrado		// dibujo parte de la pinza (inferior)
+
+	mov x1,30		// x1 = 30 (ancho del cuadrado)
+	mov x2,20		// x2 = 20 (largo del cuadrado)
+	mov x3,370		// x3 = 370 (posición y)
+	mov x4,180		// x4 = 180 (posición x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo parte de la pinza (union de superior e inferior)
+	b InfLoop
+
 //----------------------------Función de circulo----------------------------
 circulo:
     	mov x0, x20		// vuelvo a la posición base del framebuffer

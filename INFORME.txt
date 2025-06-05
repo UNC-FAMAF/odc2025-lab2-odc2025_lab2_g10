@@ -1,5 +1,5 @@
 Nombre y apellido 
-Integrante 1: Dictor Santiago Lopez
+Integrante 1: Dic Dic Dictor Santiago Lopez
 
 Integrante 2: Luca Julian Sosa Bret
 
@@ -13,6 +13,9 @@ un cangrejo, y al fondo de la misma hay una isla con una palmera que tiene una s
 
 
 Descripción ejercicio 2:
+El loop que hicimos para ocultar el Sol, es para una simulación de atardecer hasta llegar a la noche.
+Leimos en varios foros que algunos cangrejos, sobre todo los que viven en las profundidades, utilizan el día
+para recolectar comida, y por la noche regresan al mar. Basandonos en esto hicimos una breve simulación.
 
 
 Justificación instrucciones ARMv8:

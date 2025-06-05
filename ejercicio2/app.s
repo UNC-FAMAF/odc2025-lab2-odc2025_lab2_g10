@@ -446,7 +446,7 @@
     	mov x11, x29         // Centro X del sol
     	mov x12, x27       // Centro Y del sol
     	mov x13, 50        // Radio 
-   		bl borrar_y_dibujar_sol
+   		bl borrar_y_dibujar_sol_cangrejo
 		
     skip_volver: //etiqueta para volver despues de hacer la funcion
 
@@ -469,7 +469,7 @@
     	mov x0, 0 //genero un retorno en x0
         ret
 
-borrar_y_dibujar_sol:
+borrar_y_dibujar_sol_cangrejo:
 	//borro cielo
     movz w7, 0x90, lsl 16    // Color del cielo
     movk w7, 0xD6F5, lsl 00   // Pinto el color del cielo

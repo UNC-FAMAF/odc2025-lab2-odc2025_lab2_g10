@@ -77,235 +77,6 @@
 		subs x10, x10, 1	// descuento cantidad de nubes
 		cbnz x10, nube		// repito proceso si me quedan nubes por dibujar
 
-		//----------------------------Datos de isla----------------------------
-	isla:	
-		//Hojas de arbol
-		movz w7, 0x2D, lsl 16		// defino color
-		movk w7, 0x572C, lsl 00		// completo color
-    	mov x11, 360		// centro x
-    	mov x12, 120		// centro y
-    	mov x13, 30		// radio
-		bl circulo		// dibujo hoja
-
-		//Hojas de arbol
-    	mov x11, 420		// centro x
-    	mov x12, 120		// centro y
-  	  	mov x13, 30		// radio
-		bl circulo		// dibujo hoja
-		movz w7, 0x90, lsl 16		// defino color
-		movk w7, 0xD6F5, lsl 00		// completo color
-    	mov x11, 420		// centro x
-    	mov x12, 145		// centro y
-    	mov x13, 40		// radio
-		bl circulo		// dibujo recorte de hoja
-
-		// Hojas de arbol
-		movz w7, 0x2D, lsl 16		// defino color
-		movk w7, 0x572C, lsl 00		// completo color
-    	mov x11, 410		// centro x
-    	mov x12, 140		// centro y
-    	mov x13, 30		// radio
-		bl circulo		// dibujo hoja
-		movz w7, 0x90, lsl 16		// defino color
-		movk w7, 0xD6F5, lsl 00		// completo color
-    	mov x11, 400		// centro x
-    	mov x12, 160		// centro y
-    	mov x13, 40		// radio
-		bl circulo		// dibujo recorte de hoja
-	
-		// Palmera tronco
-		movz w7, 0x6C, lsl 16		// defino color
-		movk w7, 0x3B2A, lsl 00		// completo color
-    	mov x11, 380		// centro x
-    	mov x12, 150		// centro y
-    	mov x13, 40		// radio
-		bl circulo		// dibujo palmera
-		movz w7, 0x90, lsl 16		// defino color
-		movk w7, 0xD6F5, lsl 00		// completo color
-    	mov x11, 360		// centro x
-    	mov x12, 145		// centro y
-    	mov x13, 40		// radio
-		bl circulo		// dibujo recorte de palmera
-
-		// Hojas de arbol
-		movz w7, 0x2D, lsl 16		// defino color
-		movk w7, 0x572C, lsl 00		// completo color
-    	mov x11, 376		// centro x
-    	mov x12, 115		// centro y
-    	mov x13, 15		// radio
-		bl circulo		// dibujo hoja
-		movz w7, 0x90, lsl 16		// defino color
-		movk w7, 0xD6F5, lsl 00		// completo color
-    	mov x11, 380		// centro x
-    	mov x12, 120		// centro y
-  	  	mov x13, 10		// radio
-		bl circulo		// dibujo recorte de hoja
-
-		// Isla
-		movz w7, 0xFA, lsl 16		// defino color
-		movk w7, 0xDBB9, lsl 00		// completo color
-    	mov x11, 400		// centro x
- 	   	mov x12, 240		// centro y
-    	mov x13, 80		// radio
-		bl circulo		// dibujo isla
-
-	//----------------------------Datos de ODC----------------------------
-		movz w7, 0x9C, lsl 16		// defino color
-		movk w7, 0x9C9C, lsl 00		// completo color
-
-		// O piedra
-		mov x11, 380		// centro x
-  	  	mov x12, 175		// centro y
-  	  	mov x13, 10		// radio
-		bl circulo		// dibujo piedra
-  		  	add x12, x12,5		// centro y
-		bl circulo		// dibujo piedra
-
-		// d piedra
-		mov x11, 399		// centro x
-  	  	mov x12, 182		// centro y
-  	  	mov x13, 7		// radio
-		bl circulo		// dibujo piedra
-		mov x1,20		// x1 = 20 (ancho del cuadrado)
-		mov x2,5		// x2 = 5 (largo del cuadrado)
-		mov x3,165		// x3 = 165 (posición y)
-		mov x4,401		// x4 = 401 (posición x)
-		mov x14,SCREEN_WIDTH	// x14 = 640
-		sub x15,x14,x2		// x15 = 640 - x2
-		mov x14,4		// x14 = 4
-		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-		bl cuadrado		// dibujo piedra
-
-		// C piedra
-		mov x11, 419		// centro x
- 	   	mov x12, 175		// centro y
- 	   	mov x13, 10		// radio
-		bl circulo		// dibujo piedra
- 	   	add x12, x12,5		// centro y
-		bl circulo		// dibujo piedra
-
-	// 2 piedra
-		mov x10, 2		// cantidad piedras
-		mov x4,345		// x4 = 100 (posición x)
-	piedra:
-		mov x1,25		// x1 = 25 (ancho del cuadrado)
-		mov x2,20		// x2 = 20 (largo del cuadrado)
-		mov x3,193		// x3 = 193 (posición y)
-		mov x14,SCREEN_WIDTH	// x14 = 640
-		sub x15,x14,x2		// x15 = 640 - x2
-		mov x14,4		// x14 = 4
-		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-		bl cuadrado		// dibujo piedra
-		add x4,x4,54		// cambio la posición en x de la piedra
-		subs x10,x10,1		// descuento cantidad de piedras
-		cbnz x10,piedra		// repito proceso si me quedan piedras por dibujar
-
-		// 0 piedra
-		mov x11, 381		// centro x
- 	   	mov x12, 202		// centro y
- 	   	mov x13, 10		// radio
-		bl circulo		// dibujo piedra
- 	   	add x12, x12,6		// centro y
-		bl circulo		// dibujo piedra
-
-		//5
-		mov x1,25		// x1 = 25 (ancho del cuadrado)
-		mov x2,20		// x2 = 20 (largo del cuadrado)
-		mov x3,193		// x3 = 193 (posición y)
-		mov x4,425		// x4 = 425 (posición x)
-		mov x14,SCREEN_WIDTH	// x14 = 640
-		sub x15,x14,x2		// x15 = 640 - x2
-		mov x14,4		// x14 = 4
-		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-		bl cuadrado		// dibujo cuadrado y vuelvo
-
-		movz w7, 0xFA, lsl 16		// defino color
-		movk w7, 0xDBB9, lsl 00		// completo color
-
-		// O arena
-		mov x11,380		// centro x
- 	   	mov x12,175		// centro y
- 	   	mov x13,5		// radio
-		bl circulo		// dibujo arena
- 	   	add x12,x12,5		// centro y
-		bl circulo		// dibujo arena
-
-		// d arena
-		mov x11, 399		// centro x
- 	   	mov x12, 182		// centro y
- 	   	mov x13, 4		// radio
-		bl circulo		// dibujo arena
-
-		// C arena
-		mov x11,419		// centro x
- 	   	mov x12,175		// centro y
- 	   	mov x13,4		// radio
-		bl circulo		// dibujo arena
- 	   	add x12,x12,5		// centro y
-		bl circulo		// dibujo arena
-		mov x1,6		// x1 = 6 (ancho del cuadrado)
-		mov x2,14		// x2 = 14 (largo del cuadrado)
-		mov x3,175		// x3 = 175 (posición y)
-		mov x4,420		// x4 = 420 (posición x)
-		mov x14,SCREEN_WIDTH	// x14 = 640
-		sub x15,x14,x2		// x15 = 640 - x2
-		mov x14,4		// x14 = 4
-		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-		bl cuadrado		// dibujo arena
-
-	// 2 arena
-		mov x10, 2		// cantidad arena
-		mov x1,7		// x1 = 7 (ancho del cuadrado)
-		mov x2,11		// x2 = 11 (largo del cuadrado)
-		mov x3,196		// x3 = 196 (posición y)
-		mov x4,345		// x4 = 345 (posición x)
-	arena_de_piedra0:
-		mov x14,SCREEN_WIDTH	// x14 = 640
-		sub x15,x14,x2		// x15 = 640 - x2
-		mov x14,4		// x14 = 4
-		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-		bl cuadrado		// dibujo arena
-		mov x3,208		// x3 = 208 (posición y)
-		mov x4,355		// x4 = 355 (posición x)
-		subs x10,x10,1		// descuento cantidad de arena
-		cbnz x10,arena_de_piedra0		// repito proceso si me quedan arena por dibujar
-
-		// O arena
-		mov x11,381		// centro x
-	    	mov x12,202		// centro y
-	    	mov x13,6		// radio
-		bl circulo		// dibujo arena
-	    	add x12,x12,6		// centro y
-		bl circulo		// dibujo arena
-
-		// 2 arena
-		mov x10, 2		// cantidad arena
-		mov x3,196		// x3 = 196 (posición y)
-		mov x4,398		// x4 = 398 (posición x)
-	arena_de_piedra1:
-		mov x14,SCREEN_WIDTH	// x14 = 640
-		sub x15,x14,x2		// x15 = 640 - x2
-		mov x14,4		// x14 = 4
-		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-		bl cuadrado		// dibujo arena
-		mov x3,208		// x3 = 208 (posición y)
-		mov x4,408		// x4 = 408 (posición x)
-		subs x10,x10,1		// descuento cantidad de arena
-		cbnz x10,arena_de_piedra1	// repito proceso si me quedan arena por dibujar
-
-		// 5 arena
-		mov x3,196		// x3 = 196 (posición y)
-		mov x4,434		// x4 = 434 (posición x)
-		mov x14,SCREEN_WIDTH	// x14 = 640
-		sub x15,x14,x2		// x15 = 640 - x2
-		mov x14,4		// x14 = 4
-		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-		bl cuadrado		// dibujo arena
-		mov x1,7		// x1 = 7
-		mov x2,11		// x2 = 11
-		mov x3,208		// x3 = 208 (posición y)
-		mov x4,425		// x4 = 425 (posición x)
-		bl cuadrado		// dibujo arena
     //-----------------DATOS DE MAR-------------------------------
 		mov x0, x20		// vuelvo a direccion base del framebuffer
 		movz w10, 0x3F, lsl 16		// defino el color
@@ -437,7 +208,166 @@
 		mov x4,480		// x4 = 100 (posición x)
 		bl cuadrado		// dibujo orilla blanca secundaria
 		
+	//----------------------------Datos de ODC----------------------------
 	
+		
+		movz w7, 0x9C, lsl 16		// defino color
+		movk w7, 0x9C9C, lsl 00		// completo color
+		
+		
+	    // o piedra
+		mov x11, 480		// centro x
+ 	   	mov x12, 400		// centro y
+ 	   	mov x13, 10       // radio
+		bl circulo		// dibujo piedra
+ 	   	add x12, x12,5		// centro y
+		bl circulo		// dibujo piedra
+
+		// d piedra
+		mov x11, 499		// centro x
+  	  	mov x12, 407		// centro y
+  	  	mov x13, 7		// radio
+		bl circulo		// dibujo piedra
+		mov x1,20		// x1 = 20 (ancho del cuadrado)
+		mov x2,5		// x2 = 5 (largo del cuadrado)
+		mov x3,390		// x3 = (posición y)
+		mov x4,501		// x4 =  (posición x)
+		mov x14,SCREEN_WIDTH	// x14 = 640
+		sub x15,x14,x2		// x15 = 640 - x2
+		mov x14,4		// x14 = 4
+		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+		bl cuadrado		// dibujo piedra
+
+		// C piedra
+		mov x11, 519		// centro x
+ 	   	mov x12, 400		// centro y
+ 	   	mov x13, 10		// radio
+		bl circulo		// dibujo piedra
+ 	   	add x12, x12,5		// centro y
+		bl circulo		// dibujo piedra
+
+	// 2 piedra
+		mov x10, 2		// cantidad piedras
+		mov x4,445		// x4 =  (posición x)
+	piedra:
+		mov x1,25		// x1 = 25 (ancho del cuadrado)
+		mov x2,20		// x2 = 20 (largo del cuadrado)
+		mov x3,418		// x3 =  (posición y)
+		mov x14,SCREEN_WIDTH	// x14 = 640
+		sub x15,x14,x2		// x15 = 640 - x2
+		mov x14,4		// x14 = 4
+		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+		bl cuadrado		// dibujo piedra
+		add x4,x4,54		// cambio la posición en x de la piedra
+		subs x10,x10,1		// descuento cantidad de piedras
+		cbnz x10,piedra		// repito proceso si me quedan piedras por dibujar
+
+		// 0 piedra
+		mov x11, 481		// centro x
+ 	   	mov x12, 427		// centro y
+ 	   	mov x13, 10		// radio
+		bl circulo		// dibujo piedra
+ 	   	add x12, x12,6		// centro y
+		bl circulo		// dibujo piedra
+
+		//5
+		mov x1,25		// x1 = 25 (ancho del cuadrado)
+		mov x2,20		// x2 = 20 (largo del cuadrado)
+		mov x3,418		// x3 =  (posición y)
+		mov x4,525		// x4 = (posición x)
+		mov x14,SCREEN_WIDTH	// x14 = 640
+		sub x15,x14,x2		// x15 = 640 - x2
+		mov x14,4		// x14 = 4
+		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+		bl cuadrado		// dibujo cuadrado y vuelvo
+
+		movz w7, 0xF2, lsl 16		// defino color
+		movk w7, 0xCE9E, lsl 00		// completo color
+
+		// O arena
+		mov x11,480		// centro x
+ 	   	mov x12,400		// centro y
+ 	   	mov x13,5		// radio
+		bl circulo		// dibujo arena
+ 	   	add x12,x12,5		// centro y
+		bl circulo		// dibujo arena
+
+		// d arena
+		mov x11, 499		// centro x
+ 	   	mov x12, 407		// centro y
+ 	   	mov x13, 4		// radio
+		bl circulo		// dibujo arena
+
+		// C arena
+		mov x11,519		// centro x
+ 	   	mov x12,400		// centro y
+ 	   	mov x13,4		// radio
+		bl circulo		// dibujo arena
+ 	   	add x12,x12,5		// centro y
+		bl circulo		// dibujo arena
+		mov x1,6		// x1 = 6 (ancho del cuadrado)
+		mov x2,14		// x2 = 14 (largo del cuadrado)
+		mov x3,400		// x3 =  (posición y)
+		mov x4,520		// x4 =  (posición x)
+		mov x14,SCREEN_WIDTH	// x14 = 640
+		sub x15,x14,x2		// x15 = 640 - x2
+		mov x14,4		// x14 = 4
+		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+		bl cuadrado		// dibujo arena
+
+	// 2 arena
+		mov x10, 2		// cantidad arena
+		mov x1,7		// x1 = 7 (ancho del cuadrado)
+		mov x2,11		// x2 = 11 (largo del cuadrado)
+		mov x3,421		// x3 =  (posición y)
+		mov x4,445		// x4 =  (posición x)
+	arena_de_piedra0:
+		mov x14,SCREEN_WIDTH	// x14 = 640
+		sub x15,x14,x2		// x15 = 640 - x2
+		mov x14,4		// x14 = 4
+		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+		bl cuadrado		// dibujo arena
+		mov x3,433		// x3 =  (posición y)
+		mov x4,455		// x4 = (posición x)
+		subs x10,x10,1		// descuento cantidad de arena
+		cbnz x10,arena_de_piedra0		// repito proceso si me quedan arena por dibujar
+
+		// O arena
+		mov x11,481		// centro x
+	    mov x12,427		// centro y
+	    mov x13,6		// radio
+		bl circulo		// dibujo arena
+	    add x12,x12,6		// centro y
+		bl circulo		// dibujo arena
+
+		// 2 arena
+		mov x10, 2		// cantidad arena
+		mov x3,421		// x3 = (posición y)
+		mov x4,498		// x4 = (posición x)
+	arena_de_piedra1:
+		mov x14,SCREEN_WIDTH	// x14 = 640
+		sub x15,x14,x2		// x15 = 640 - x2
+		mov x14,4		// x14 = 4
+		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+		bl cuadrado		// dibujo arena
+		mov x3,432		// x3 = (posición y)
+		mov x4,508		// x4 = (posición x)
+		subs x10,x10,1		// descuento cantidad de arena
+		cbnz x10,arena_de_piedra1	// repito proceso si me quedan arena por dibujar
+
+		// 5 arena
+		mov x3,421		// x3 = (posición y)
+		mov x4,534		// x4 = (posición x)
+		mov x14,SCREEN_WIDTH	// x14 = 640
+		sub x15,x14,x2		// x15 = 640 - x2
+		mov x14,4		// x14 = 4
+		mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+		bl cuadrado		// dibujo arena
+		mov x1,7		// x1 = 7
+		mov x2,11		// x2 = 11
+		mov x3,433		// x3 = (posición y)
+		mov x4,525		// x4 = (posición x)
+		bl cuadrado		// dibujo arena
 		
 	loop_animacion:
 		// Restauro x0 al inicio del framebuffer para redibujar todo
@@ -472,13 +402,12 @@
 borrar_y_dibujar_sol_cangrejo:
 	
 	
-	
 	//efecto cielo 
-	movz w7,0x25, lsl 16		// defino el color
-	movk w7, 0x2850, lsl 00		// completo color
+	movz w7,0x11, lsl 16		// defino el color
+	movk w7, 0x1222, lsl 00		// completo color
 	mov x1,25 	// x1 = 42 (ancho del cuadrado)
 	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
-	sub x3,X27,100	// x3 = 220 (posicion y)
+	sub x3,X27,155	// x3 = 220 (posicion y)
 	mov x4,320	// x4 = 160 (posicion x)
 	mov x14,SCREEN_WIDTH	// x14 = 640
 	sub x15,x14,x2		// x15 = 640 - x2
@@ -488,8 +417,167 @@ borrar_y_dibujar_sol_cangrejo:
 
 	
 	//efecto cielo 
+	movz w7,0x17, lsl 16		// defino el color
+	movk w7, 0x252D, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,150	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado
+
+	//efecto cielo 
+	movz w7,0x1D, lsl 16		// defino el color
+	movk w7, 0x2A37, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,145	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+	//efecto cielo 
+	movz w7,0x23, lsl 16		// defino el color
+	movk w7, 0x3041, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,140	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+	//efecto cielo 
+	movz w7,0x29, lsl 16		// defino el color
+	movk w7, 0x364B, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,135 // x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+	
+
+	//efecto cielo 
+	movz w7,0x2F, lsl 16		// defino el color
+	movk w7, 0x3C56, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,130	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+
+        //efecto cielo 
 	movz w7,0x35, lsl 16		// defino el color
-	movk w7, 0x3A80, lsl 00		// completo color
+	movk w7, 0x4260, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,125	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+	//efecto cielo 
+	movz w7,0x3B, lsl 16		// defino el color
+	movk w7, 0x486A, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,120	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+		//efecto cielo 
+	movz w7,0x41, lsl 16		// defino el color
+	movk w7, 0x5E75, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,115	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+	
+		//efecto cielo 
+	movz w7,0x47, lsl 16		// defino el color
+	movk w7, 0x6580, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,110	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+
+		//efecto cielo 
+	movz w7,0x4D, lsl 16		// defino el color
+	movk w7, 0x6B8A, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,105	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+	//efecto cielo 
+	movz w7,0x53, lsl 16		// defino el color
+	movk w7, 0x7194, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,100	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+        //efecto cielo 
+	movz w7,0x59, lsl 16		// defino el color
+	movk w7, 0x779E, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,95	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+	 //efecto cielo 
+	movz w7,0x5F, lsl 16		// defino el color
+	movk w7, 0x7DA9, lsl 00		// completo color
 	mov x1,25 	// x1 = 42 (ancho del cuadrado)
 	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
 	sub x3,X27,90	// x3 = 220 (posicion y)
@@ -498,11 +586,24 @@ borrar_y_dibujar_sol_cangrejo:
 	sub x15,x14,x2		// x15 = 640 - x2
 	mov x14,4		// x14 = 4
 	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
-	bl cuadrado
+	bl cuadrado 
 	
 	//efecto cielo 
-	movz w7,0x90, lsl 16		// defino el color
-	movk w7, 0xD6F5, lsl 00		// completo color
+	movz w7,0x65, lsl 16		// defino el color
+	movk w7, 0x93B3, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,85	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+	
+	//efecto cielo 
+	movz w7,0x6B, lsl 16		// defino el color
+	movk w7, 0x99BD, lsl 00		// completo color
 	mov x1,25 	// x1 = 42 (ancho del cuadrado)
 	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
 	sub x3,X27,80	// x3 = 220 (posicion y)
@@ -512,7 +613,49 @@ borrar_y_dibujar_sol_cangrejo:
 	mov x14,4		// x14 = 4
 	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
 	bl cuadrado 
+	
 
+	//efecto cielo 
+	movz w7,0x71, lsl 16		// defino el color
+	movk w7, 0xA0C8, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,75	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+	//efecto cielo 
+	movz w7,0x77, lsl 16		// defino el color
+	movk w7, 0xA6D2, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,70	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+
+	//efecto cielo 
+	movz w7,0x7D, lsl 16		// defino el color
+	movk w7, 0xADD7, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,64	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
+	
 	//borro cielo
     movz w7, 0x90, lsl 16    // Color del cielo
     movk w7, 0xD6F5, lsl 00   // Pinto el color del cielo
@@ -534,8 +677,8 @@ borrar_y_dibujar_sol_cangrejo:
 	movk w7, 0xCE9E, lsl 00		// completo color
 	mov x1,250 	// x1 = 42 (ancho del cuadrado)
 	mov x2,350	   // x2 = 42 (largo del cuadrado)
-	mov x3,330	// x3 = 220 (posicion y)
-	mov x4,25	// x4 = 160 (posicion x)
+	mov x3,330	// x3 = (posicion y)
+	mov x4,25	// x4 = (posicion x)
 	mov x14,SCREEN_WIDTH	// x14 = 640
 	sub x15,x14,x2		// x15 = 640 - x2
 	mov x14,4		// x14 = 4
@@ -548,25 +691,25 @@ borrar_y_dibujar_sol_cangrejo:
 	movk w7, 0xFFFF, lsl 00		// completo color
 	mov x1,15  	// x1 = 42 (ancho del cuadrado)
 	mov x2,180	   // x2 = 42 (largo del cuadrado)
-	mov x3,320	// x3 = 220 (posicion y)
-	mov x4,25	// x4 = 160 (posicion x)
+	mov x3,320	// x3 = (posicion y)
+	mov x4,25	// x4 = (posicion x)
 	mov x14,SCREEN_WIDTH	// x14 = 640
 	sub x15,x14,x2		// x15 = 640 - x2
 	mov x14,4		// x14 = 4
 	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
 	bl cuadrado		// dibujo parte mas clara del mar
 
-	mov x3,316		// x3 = 316 (posición y)
-	mov x4,180		// x4 = 180 (posición x)
+	mov x3,316		// x3 = (posición y)
+	mov x4,180		// x4 = (posición x)
 	bl cuadrado		// dibujo otra parte de la orilla
 	movz w7, 0xF5, lsl 16		// defino el color
 	movk w7, 0xF5F5, lsl 00		// completo color
-	mov x3,306		// x3 = 306 (posición y)
-	mov x4,0		// x4 = 0 (posición x)
+	mov x3,306		// x3 = (posición y)
+	mov x4,0		// x4 =  (posición x)
 	bl cuadrado		// dibujo orilla blanca secundaria
 
-	mov x3,302		// x3 = 302 (posición y)
-	mov x4,155		// x4 = 155 (posición x)
+	mov x3,302		// x3 =  (posición y)
+	mov x4,155		// x4 =  (posición x)
 	bl cuadrado		// dibujo orilla blanca secundaria
 
 	//dibujo cangrejo
@@ -576,8 +719,8 @@ borrar_y_dibujar_sol_cangrejo:
 		movk w7, 0x0000, lsl 00		// completo color
 		mov	x1,10		// x1 = 10 (ancho del cuadrado)
 		mov x2,7		// x2 = 7 (largo del cuadrado)
-		add x3,x23,#40		// x3 = 400 (posición y)
-		sub x4,x24,#30		// x4 = 60 (posición x)
+		add x3,x23,#40		// x3 = (posición y)
+		sub x4,x24,#30		// x4 = (posición x)
 		mov x14,SCREEN_WIDTH	// x14 = 640
 		sub x15,x14,x2		// x15 = 640 - x2
 		mov x14,4		// x14 = 4
@@ -588,7 +731,7 @@ borrar_y_dibujar_sol_cangrejo:
 
 		mov x1,20		// x1 = 20 (modifico ancho del cuadrado)
 		mov x2,7		// x2 = 7 (largo del cuadrado)
-		add x3,x23,#40		// x3 = 400 (posición y)
+		add x3,x23,#40		// x3 =  (posición y)
 		sub x4,x24,#20		// x4 = 70 (modifica posición x)
 		bl cuadrado		// dibujo pata izquiera
 

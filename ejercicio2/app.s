@@ -470,6 +470,49 @@
         ret
 
 borrar_y_dibujar_sol_cangrejo:
+	
+	
+	
+	//efecto cielo 
+	movz w7,0x25, lsl 16		// defino el color
+	movk w7, 0x2850, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,100	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado		// dibujo parte mas clara del mar
+
+	
+	//efecto cielo 
+	movz w7,0x35, lsl 16		// defino el color
+	movk w7, 0x3A80, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,90	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado
+	
+	//efecto cielo 
+	movz w7,0x90, lsl 16		// defino el color
+	movk w7, 0xD6F5, lsl 00		// completo color
+	mov x1,25 	// x1 = 42 (ancho del cuadrado)
+	mov x2,SCREEN_WIDTH	   // x2 = 42 (largo del cuadrado)
+	sub x3,X27,80	// x3 = 220 (posicion y)
+	mov x4,320	// x4 = 160 (posicion x)
+	mov x14,SCREEN_WIDTH	// x14 = 640
+	sub x15,x14,x2		// x15 = 640 - x2
+	mov x14,4		// x14 = 4
+	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
+	bl cuadrado 
+
 	//borro cielo
     movz w7, 0x90, lsl 16    // Color del cielo
     movk w7, 0xD6F5, lsl 00   // Pinto el color del cielo
@@ -688,6 +731,8 @@ borrar_y_dibujar_sol_cangrejo:
 	mov x14,4		// x14 = 4
 	mul x15,x15,x14		// x15 = (640 - x2) * 4 (al tratarse de un cuadrado x15 guarda la siguiente posición de la columna x)
 	bl cuadrado		// dibujo efecto del agua
+
+	
 		
     b skip_volver
 
